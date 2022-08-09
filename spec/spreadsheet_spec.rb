@@ -1,4 +1,5 @@
 require 'rspec'
+require './app/spreadsheet'
 
 describe 'Spreadsheet' do
   before do
@@ -9,9 +10,12 @@ describe 'Spreadsheet' do
     # Do nothing
   end
 
-  context 'when condition' do
-    it 'succeeds' do
-      pending 'Not implemented'
+  context 'when creating a new sheet' do
+    let(:spreadsheet) { Spreadsheet.new }
+
+    it 'has empty cells by default' do
+      expect(spreadsheet.get('A1')).to eq ''
+      expect(spreadsheet.get('ZX347')).to eq ''
     end
   end
 end
