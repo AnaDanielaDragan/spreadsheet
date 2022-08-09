@@ -1,5 +1,9 @@
 class Spreadsheet
-  def get(position)
-    ''
+  def get(cell)
+    @value || ''
+  end
+
+  def put(cell, value)
+    @value = value
   end
 end

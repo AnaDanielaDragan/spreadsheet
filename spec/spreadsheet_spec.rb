@@ -18,4 +18,20 @@ describe 'Spreadsheet' do
       expect(spreadsheet.get('ZX347')).to eq ''
     end
   end
+
+  context 'when writing text to cell' do
+    let(:spreadsheet) { Spreadsheet.new }
+    let(:cell) { 'A21' }
+
+    it 'stores the text' do
+      spreadsheet.put(cell, 'A string')
+      expect(spreadsheet.get(cell)).to eq 'A string'
+
+      spreadsheet.put(cell, 'A different string')
+      expect(spreadsheet.get(cell)).to eq 'A different string'
+
+      spreadsheet.put(cell, '')
+      expect(spreadsheet.get(cell)).to eq ''
+    end
+  end
 end
