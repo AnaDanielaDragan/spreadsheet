@@ -9,7 +9,7 @@ class SpreadsheetTable
   end
 
   def get(cell)
-    table_value = @table.read_cell(parse_cell_row(cell), parse_cell_column(cell))
+    table_value = get_literal(cell)
     parse_value(table_value)
   end
 

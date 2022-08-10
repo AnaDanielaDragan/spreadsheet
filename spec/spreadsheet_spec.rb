@@ -3,15 +3,7 @@ require 'pry'
 require './app/spreadsheet'
 
 describe 'Spreadsheet' do
-  before do
-    # Do nothing
-  end
-
-  after do
-    # Do nothing
-  end
-
-  context 'when creating a new sheet' do
+  context 'when creating a new spreadsheet' do
     let(:spreadsheet) { Spreadsheet.new }
 
     it 'has empty cells by default' do
@@ -37,14 +29,17 @@ describe 'Spreadsheet' do
   end
 
   context 'when writing numerics to cell' do
+    subject(:put_value) { spreadsheet.put(cell, value) }
+
     let(:spreadsheet) { Spreadsheet.new }
     let(:cell) { 'A21' }
 
     context 'when given a string' do
       let(:value) { 'X99' }
 
-      it 'stores value as string' do
-        spreadsheet.put(cell, value)
+      it 'returns value as string' do
+        put_value
+
         expect(spreadsheet.get(cell)).to eq value
       end
     end
@@ -52,8 +47,9 @@ describe 'Spreadsheet' do
     context 'when given a mixed string and number value' do
       let(:value) { ' 99 X' }
 
-      it 'stores value as string' do
-        spreadsheet.put(cell, value)
+      it 'returns value as string' do
+        put_value
+
         expect(spreadsheet.get(cell)).to eq value
       end
     end
@@ -62,8 +58,9 @@ describe 'Spreadsheet' do
       let(:value) { '14' }
       let(:expected_value) { 14 }
 
-      it 'stores value as number' do
-        spreadsheet.put(cell, value)
+      it 'returns value as number' do
+        put_value
+
         expect(spreadsheet.get(cell)).to eq expected_value
       end
     end
@@ -72,8 +69,9 @@ describe 'Spreadsheet' do
       let(:value) { ' 1234 ' }
       let(:expected_value) { 1234 }
 
-      it 'stores value as number ignoring white spaces' do
-        spreadsheet.put(cell, value)
+      it 'returns value as number ignoring white spaces' do
+        put_value
+
         expect(spreadsheet.get(cell)).to eq expected_value
       end
     end
@@ -81,8 +79,9 @@ describe 'Spreadsheet' do
     context 'when given a white space' do
       let(:value) { ' ' }
 
-      it 'stores the white space' do
-        spreadsheet.put(cell, value)
+      it 'returns the white space' do
+        put_value
+
         expect(spreadsheet.get(cell)).to eq value
       end
     end
@@ -97,7 +96,7 @@ describe 'Spreadsheet' do
       spreadsheet.put('Z99', 'Third')
     end
 
-    it 'stores the cells values' do
+    it 'stores the values in the given cells' do
       expect(spreadsheet.get('A1')).to eq 'First'
       expect(spreadsheet.get('X27')).to eq 'Second'
       expect(spreadsheet.get('Z99')).to eq 'Third'
@@ -118,14 +117,17 @@ describe 'Spreadsheet' do
   end
 
   context 'when requesting literal values' do
+    subject(:put_value) { spreadsheet.put(cell, value) }
+
     let(:spreadsheet) { Spreadsheet.new }
     let(:cell) { 'A21' }
 
-    context 'when value is string' do
+    context 'when value is a string' do
       let(:value) { 'Some string' }
 
       it 'returns a string' do
-        spreadsheet.put(cell, value)
+        put_value
+
         expect(spreadsheet.get_literal(cell)).to eq value
       end
     end
@@ -134,7 +136,8 @@ describe 'Spreadsheet' do
       let(:value) { '14' }
 
       it 'returns a string' do
-        spreadsheet.put(cell, value)
+        put_value
+
         expect(spreadsheet.get_literal(cell)).to eq value
       end
     end
@@ -143,7 +146,8 @@ describe 'Spreadsheet' do
       let(:value) { ' 1234 ' }
 
       it 'returns a string' do
-        spreadsheet.put(cell, value)
+        put_value
+
         expect(spreadsheet.get_literal(cell)).to eq value
       end
     end
@@ -152,7 +156,8 @@ describe 'Spreadsheet' do
       let(:value) { '=7' }
 
       it 'returns a string' do
-        spreadsheet.put(cell, value)
+        put_value
+
         expect(spreadsheet.get_literal(cell)).to eq value
       end
     end
