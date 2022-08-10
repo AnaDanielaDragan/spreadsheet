@@ -36,6 +36,58 @@ describe 'Spreadsheet' do
     end
   end
 
+  context 'when writing numerics to cell' do
+    let(:spreadsheet) { Spreadsheet.new }
+    let(:cell) { 'A21' }
+
+    context 'when given a string' do
+      let(:value) { 'X99' }
+
+      it 'stores value as string' do
+        spreadsheet.put(cell, value)
+        expect(spreadsheet.get(cell)).to eq value
+      end
+    end
+
+    context 'when given a mixed string and number value' do
+      let(:value) { ' 99 X' }
+
+      it 'stores value as string' do
+        spreadsheet.put(cell, value)
+        expect(spreadsheet.get(cell)).to eq value
+      end
+    end
+
+    context 'when given a number' do
+      let(:value) { '14' }
+      let(:expected_value) { 14 }
+
+      it 'stores value as number' do
+        spreadsheet.put(cell, value)
+        expect(spreadsheet.get(cell)).to eq expected_value
+      end
+    end
+
+    context 'when given a mixed number and white space value' do
+      let(:value) { ' 1234 ' }
+      let(:expected_value) { 1234 }
+
+      it 'stores value as number ignoring white spaces' do
+        spreadsheet.put(cell, value)
+        expect(spreadsheet.get(cell)).to eq expected_value
+      end
+    end
+
+    context 'when given a white space' do
+      let(:value) { ' ' }
+
+      it 'stores the white space' do
+        spreadsheet.put(cell, value)
+        expect(spreadsheet.get(cell)).to eq value
+      end
+    end
+  end
+
   context 'when adding multiple cells' do
     let(:spreadsheet) { Spreadsheet.new }
 

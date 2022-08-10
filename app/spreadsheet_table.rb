@@ -9,7 +9,8 @@ class SpreadsheetTable
   end
 
   def get(cell)
-    @table.read_cell(parse_cell_row(cell), parse_cell_column(cell))
+    table_value = @table.read_cell(parse_cell_row(cell), parse_cell_column(cell))
+    parse_value(table_value)
   end
 
   def put(cell, value)
@@ -17,6 +18,16 @@ class SpreadsheetTable
   end
 
   private
+
+  def parse_value(value)
+    return value unless is_number?(value)
+
+    value.strip.to_i
+  end
+
+  def is_number?(value)
+    value.strip.match?(/\A-?\d+\Z/)
+  end
 
   def parse_cell_row(cell)
     Array('A' .. 'Z').find_index(cell[0])
