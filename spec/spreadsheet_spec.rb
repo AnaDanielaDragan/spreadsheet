@@ -116,4 +116,45 @@ describe 'Spreadsheet' do
       end
     end
   end
+
+  context 'when requesting literal values' do
+    let(:spreadsheet) { Spreadsheet.new }
+    let(:cell) { 'A21' }
+
+    context 'when value is string' do
+      let(:value) { 'Some string' }
+
+      it 'returns a string' do
+        spreadsheet.put(cell, value)
+        expect(spreadsheet.get_literal(cell)).to eq value
+      end
+    end
+
+    context 'when value is numeric' do
+      let(:value) { '14' }
+
+      it 'returns a string' do
+        spreadsheet.put(cell, value)
+        expect(spreadsheet.get_literal(cell)).to eq value
+      end
+    end
+
+    context 'when value is numeric with white spaces' do
+      let(:value) { ' 1234 ' }
+
+      it 'returns a string' do
+        spreadsheet.put(cell, value)
+        expect(spreadsheet.get_literal(cell)).to eq value
+      end
+    end
+
+    context 'when value is a formula' do
+      let(:value) { '=7' }
+
+      it 'returns a string' do
+        spreadsheet.put(cell, value)
+        expect(spreadsheet.get_literal(cell)).to eq value
+      end
+    end
+  end
 end

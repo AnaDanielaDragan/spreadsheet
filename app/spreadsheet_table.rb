@@ -13,6 +13,10 @@ class SpreadsheetTable
     parse_value(table_value)
   end
 
+  def get_literal(cell)
+    @table.read_cell(parse_cell_row(cell), parse_cell_column(cell))
+  end
+
   def put(cell, value)
     @table.write_cell(parse_cell_row(cell), parse_cell_column(cell), value)
   end
