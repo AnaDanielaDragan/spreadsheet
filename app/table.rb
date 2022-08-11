@@ -1,7 +1,8 @@
-class Table
+# frozen_string_literal: true
 
+class Table
   def initialize(length, height)
-    @table = Array.new(length){ Array.new(height) { '' } }
+    @table = Array.new(length) { Array.new(height) { '' } }
   end
 
   def write_cell(row, column, value)

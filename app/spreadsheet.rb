@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require './app/spreadsheet_table'
 
 class Spreadsheet
-
   def initialize
     @spreadsheet_table = SpreadsheetTable.new
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './app/table'
 
 class SpreadsheetTable
@@ -10,7 +12,7 @@ class SpreadsheetTable
 
   def get(cell)
     table_value = get_literal(cell)
-    parse_value(table_value)
+    parse_numeric_values(table_value)
   end
 
   def get_literal(cell)
@@ -23,21 +25,21 @@ class SpreadsheetTable
 
   private
 
-  def parse_value(value)
-    return value unless is_number?(value)
+  def parse_numeric_values(value)
+    return value unless number?(value)
 
     value.strip.to_i
   end
 
-  def is_number?(value)
+  def number?(value)
     value.strip.match?(/\A-?\d+\Z/)
   end
 
   def parse_cell_row(cell)
-    Array('A' .. 'Z').find_index(cell[0])
+    Array('A'..'Z').find_index(cell[0])
   end
 
   def parse_cell_column(cell)
-    cell[1 ..].to_i
+    cell[1..].to_i
   end
 end

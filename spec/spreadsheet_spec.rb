@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require 'pry'
 require './app/spreadsheet'
@@ -103,7 +105,6 @@ describe 'Spreadsheet' do
     end
 
     context 'when modifying a cell' do
-
       before do
         spreadsheet.put('A1', 'Fourth')
       end
