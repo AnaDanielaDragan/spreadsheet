@@ -1,0 +1,23 @@
+name: CI Validation
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bundle install
+        run: bundle install
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: RuboCop validation
+        with:
+          action_config_path: ".github/config/rubocop_action.yml"
+  rspec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: RSpec tests
+        run: bundle exec rspec
