@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'rspec'
-require 'pry'
-require './app/spreadsheet'
-
 describe 'Spreadsheet' do
   context 'when creating a new spreadsheet' do
     let(:spreadsheet) { Spreadsheet.new }
