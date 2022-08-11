@@ -8,14 +8,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+
       - name: Bundle install
         run: |
           gem install bundle
           bundle install
 
       - name: RuboCop validation
-      with:
-        action_config_path: ".github/config/rubocop_action.yml"
+        with:
+          action_config_path: ".github/config/rubocop_action.yml"
 
       - name: RSpec tests
         run: bundle exec rspec
