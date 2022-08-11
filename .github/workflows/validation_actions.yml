@@ -15,8 +15,7 @@ jobs:
           bundle install
 
       - name: RuboCop validation
-        with:
-          action_config_path: ".github/config/rubocop_action.yml"
+        run: bundle exec rubocop
 
       - name: RSpec tests
         run: bundle exec rspec
