@@ -48,7 +48,7 @@ rubocop_config_path: ".rubocop.yml"
 # want to list out dependencies with the `versions` key.
 # Valid options: true || false
 # Default: false
-bundle: true
+bundle: false
 
 # The scope of code that RuboCop should lint. Use this if you only want to lint changed files. If this is not set
 # or not equal to 'modified', RuboCop is run against the entire codebase. Note that this will not work on the master branch.

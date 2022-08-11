@@ -3,20 +3,18 @@ name: CI Validation
 on: [push]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Bundle install
-        run: bundle install
-  rubocop:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Bundle install
+        run: |
+          gem install bundle
+          bundle install
+
       - name: RuboCop validation
-        with:
-          action_config_path: ".github/config/rubocop_action.yml"
-  rspec:
-    runs-on: ubuntu-latest
-    steps:
+      with:
+        action_config_path: ".github/config/rubocop_action.yml"
+
       - name: RSpec tests
         run: bundle exec rspec
