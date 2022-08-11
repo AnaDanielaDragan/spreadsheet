@@ -5,6 +5,7 @@ on: [push]
 jobs:
   validate:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v1
       - name: Bundle install
