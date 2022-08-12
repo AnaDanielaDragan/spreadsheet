@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require './app/table'
+require './app/spreadsheet/formula_parser'
 
 module Spreadsheet
   class Table
@@ -12,10 +13,12 @@ module Spreadsheet
     end
 
     def get(cell)
-      table_value = parse_numeric_values(get_literal(cell))
+      table_value = get_literal(cell)
 
-      if table_value[0] == '='
-        table_value[1..]
+      if number?(table_value)
+        table_value.strip.to_i
+      elsif formula?(table_value)
+        Spreadsheet::FormulaParser.get_result(table_value)
       else
         table_value
       end
@@ -31,10 +34,8 @@ module Spreadsheet
 
     private
 
-    def parse_numeric_values(value)
-      return value unless number?(value)
-
-      value.strip.to_i
+    def formula?(value)
+      value[0] == '='
     end
 
     def number?(value)
