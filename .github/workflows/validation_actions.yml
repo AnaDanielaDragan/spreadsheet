@@ -1,0 +1,23 @@
+name: CI Validation
+
+on: [push]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    container:
+      image: ruby:2.7.6
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Bundle install
+        run: |
+          gem install bundle
+          bundle install
+
+      - name: RuboCop validation
+        run: bundle exec rubocop
+
+      - name: RSpec tests
+        run: bundle exec rspec
