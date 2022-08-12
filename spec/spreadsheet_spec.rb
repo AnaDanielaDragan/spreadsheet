@@ -159,4 +159,26 @@ describe 'Spreadsheet' do
       end
     end
   end
+
+  context 'when cell value is an invalid formula' do
+    let(:spreadsheet) { Spreadsheet.new }
+    let(:cell) { 'B1' }
+    let(:value) { ' =7' }
+
+    before do
+      spreadsheet.put(cell, value)
+    end
+
+    context 'when requesting the value' do
+      it 'returns the string value' do
+        expect(spreadsheet.get(cell)).to eq(value), 'Not a formula'
+      end
+    end
+
+    context 'when requesting the literal value' do
+      it 'returns the string value' do
+        expect(spreadsheet.get_literal(cell)).to eq(value), 'Unchanged'
+      end
+    end
+  end
 end
