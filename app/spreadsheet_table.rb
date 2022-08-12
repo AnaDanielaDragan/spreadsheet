@@ -11,8 +11,13 @@ class SpreadsheetTable
   end
 
   def get(cell)
-    table_value = get_literal(cell)
-    parse_numeric_values(table_value)
+    table_value = parse_numeric_values(get_literal(cell))
+
+    if table_value[0] == '='
+      table_value[1..]
+    else
+      table_value
+    end
   end
 
   def get_literal(cell)

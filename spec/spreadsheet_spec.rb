@@ -181,4 +181,27 @@ describe 'Spreadsheet' do
       end
     end
   end
+
+  context 'when cell value is a constant formula', :focus do
+    let(:spreadsheet) { Spreadsheet.new }
+    let(:cell) { 'A1' }
+    let(:value) { '=7' }
+    let(:expected_value) { '7' }
+
+    before do
+      spreadsheet.put(cell, value)
+    end
+
+    it 'returns the result value' do
+      expect(spreadsheet.get(cell)).to eq(expected_value), 'Value'
+    end
+
+    context 'when requesting the literal value' do
+      let(:expected_value) { '=7' }
+
+      it 'returns value as string' do
+        expect(spreadsheet.get_literal(cell)).to eq(expected_value), 'Formula'
+      end
+    end
+  end
 end
