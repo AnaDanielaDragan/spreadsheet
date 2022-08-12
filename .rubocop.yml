@@ -12,3 +12,6 @@ RSpec/MultipleExpectations:
 
 RSpec/ExampleLength:
   Max: 6
+
+RSpec/NestedGroups:
+  Max: 5
