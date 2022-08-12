@@ -3,4 +3,4 @@
 require 'rspec'
 require 'pry'
 
-require './app/spreadsheet'
+require './app/spreadsheet/sheet'

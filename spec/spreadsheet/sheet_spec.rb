@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-describe 'Spreadsheet' do
+describe 'Sheet' do
   context 'when creating a new spreadsheet' do
-    let(:spreadsheet) { Spreadsheet.new }
+    let(:spreadsheet) { Spreadsheet::Sheet.new }
 
     it 'has empty cells by default' do
       expect(spreadsheet.get('A1')).to eq ''
@@ -11,7 +11,7 @@ describe 'Spreadsheet' do
   end
 
   context 'when writing text to cell' do
-    let(:spreadsheet) { Spreadsheet.new }
+    let(:spreadsheet) { Spreadsheet::Sheet.new }
     let(:cell) { 'A21' }
 
     it 'stores the text' do
@@ -29,7 +29,7 @@ describe 'Spreadsheet' do
   context 'when writing numerics to cell' do
     subject(:put_value) { spreadsheet.put(cell, value) }
 
-    let(:spreadsheet) { Spreadsheet.new }
+    let(:spreadsheet) { Spreadsheet::Sheet.new }
     let(:cell) { 'A21' }
 
     context 'when given a string' do
@@ -86,7 +86,7 @@ describe 'Spreadsheet' do
   end
 
   context 'when adding multiple cells' do
-    let(:spreadsheet) { Spreadsheet.new }
+    let(:spreadsheet) { Spreadsheet::Sheet.new }
 
     before do
       spreadsheet.put('A1', 'First')
@@ -116,7 +116,7 @@ describe 'Spreadsheet' do
   context 'when requesting literal values' do
     subject(:put_value) { spreadsheet.put(cell, value) }
 
-    let(:spreadsheet) { Spreadsheet.new }
+    let(:spreadsheet) { Spreadsheet::Sheet.new }
     let(:cell) { 'A21' }
 
     context 'when value is a string' do
@@ -161,7 +161,7 @@ describe 'Spreadsheet' do
   end
 
   context 'when cell value is an invalid formula' do
-    let(:spreadsheet) { Spreadsheet.new }
+    let(:spreadsheet) { Spreadsheet::Sheet.new }
     let(:cell) { 'B1' }
     let(:value) { ' =7' }
 
@@ -182,8 +182,8 @@ describe 'Spreadsheet' do
     end
   end
 
-  context 'when cell value is a constant formula', :focus do
-    let(:spreadsheet) { Spreadsheet.new }
+  context 'when cell value is a constant formula' do
+    let(:spreadsheet) { Spreadsheet::Sheet.new }
     let(:cell) { 'A1' }
     let(:value) { '=7' }
     let(:expected_value) { '7' }
