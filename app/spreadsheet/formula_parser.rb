@@ -12,6 +12,8 @@ module Spreadsheet
 
         if constant?
           @current_value.strip.to_i
+        elsif sum?
+          @current_value.split('+').map(&:to_i).inject(:+)
         elsif multiplication?
           @current_value.split('*').map(&:to_i).inject(:*)
         elsif parentheses?
@@ -22,6 +24,10 @@ module Spreadsheet
       end
 
       private
+
+      def sum?
+        @current_value.include?('+')
+      end
 
       def multiplication?
         @current_value.include?('*')

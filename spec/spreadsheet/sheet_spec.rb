@@ -251,5 +251,18 @@ describe 'Sheet' do
         expect(spreadsheet.get(cell)).to eq expected_value
       end
     end
+
+    context 'with addition' do
+      let(:value) { '=71+2+3' }
+      let(:expected_value) { 76 }
+
+      it 'returns the sum result' do
+        expect(spreadsheet.get(cell)).to eq expected_value
+      end
+    end
+
+    #  TODO: Refactoring
+    #   -> Extract spreadsheet.get(cell) to subject
+    #   -> Define expect(spreadsheet.get(cell)).to eq expected_value something like it_behaves_like 'a result'
   end
 end
