@@ -183,24 +183,24 @@ describe 'Sheet' do
 
         it 'returns the string value' do
           expect(spreadsheet.get(cell)).to eq(value), 'Not a formula'
-          expect(spreadsheet.get_literal(cell)).to eq(value), 'Unchanged'
+          expect(spreadsheet.get_literal(cell)).to eq value
         end
       end
 
       context 'when constant' do
         let(:cell) { 'A1' }
         let(:value) { '=7' }
-        let(:expected_value) { '7' }
+        let(:expected_value) { 7 }
 
         it 'returns the result value' do
-          expect(spreadsheet.get(cell)).to eq(expected_value), 'Value'
+          expect(spreadsheet.get(cell)).to eq expected_value
         end
 
         context 'when requesting the literal value' do
           let(:expected_value) { '=7' }
 
           it 'returns value as string' do
-            expect(spreadsheet.get_literal(cell)).to eq(expected_value), 'Formula'
+            expect(spreadsheet.get_literal(cell)).to eq expected_value
           end
         end
       end
@@ -230,7 +230,7 @@ describe 'Sheet' do
       let(:expected_value) { '7' }
 
       it 'returns the value' do
-        expect(spreadsheet.get(cell)).to eq(expected_value), 'Parends'
+        expect(spreadsheet.get(cell)).to eq expected_value
       end
     end
 
@@ -239,11 +239,11 @@ describe 'Sheet' do
       let(:expected_value) { '10' }
 
       it 'returns the value' do
-        expect(spreadsheet.get(cell)).to eq(expected_value), 'Parends'
+        expect(spreadsheet.get(cell)).to eq expected_value
       end
     end
 
-    context 'when using multiplication' do
+    context 'with multiplication' do
       let(:value) { '=2*3*4' }
       let(:expected_value) { 24 }
 
@@ -252,8 +252,4 @@ describe 'Sheet' do
       end
     end
   end
-
-  #  TODO: Refactoring
-  #   -> Eliminate messages from expect
-  #   -> Get Integer results for constant
 end

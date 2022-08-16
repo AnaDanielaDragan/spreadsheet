@@ -11,7 +11,7 @@ module Spreadsheet
         @current_value = value[1..]
 
         if constant?
-          @current_value.strip
+          @current_value.strip.to_i
         elsif multiplication?
           @current_value.split('*').map(&:to_i).inject(:*)
         elsif parentheses?
