@@ -230,7 +230,16 @@ describe 'Sheet' do
       let(:expected_value) { '7' }
 
       it 'returns the value' do
-        expect(spreadsheet.get(cell)).to eq expected_value
+        expect(spreadsheet.get(cell)).to eq(expected_value), 'Parends'
+      end
+    end
+
+    context 'with deep parentheses' do
+      let(:value) { '=((((10))))' }
+      let(:expected_value) { '10' }
+
+      it 'returns the value' do
+        expect(spreadsheet.get(cell)).to eq(expected_value), 'Parends'
       end
     end
   end
