@@ -5,7 +5,7 @@ module Spreadsheet
     INNER_PARENTHESES_REGEX = /.*\((.*?)\)/.freeze
     NUMERIC_REGEX = /\A-?\d+\Z/.freeze
 
-    MATH_OPERATIONS = %w[+ *].freeze
+    MATH_OPERATIONS = /[+*]/.freeze
 
     class << self
       def get_result(value)
@@ -33,7 +33,7 @@ module Spreadsheet
       end
 
       def math_operation?
-        MATH_OPERATIONS.any? { |math_operation| @current_value.include? math_operation }
+        @current_value.match?(MATH_OPERATIONS)
       end
 
       def resolve_math_operation
