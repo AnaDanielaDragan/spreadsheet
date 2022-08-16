@@ -216,4 +216,22 @@ describe 'Sheet' do
       expect(spreadsheet.get('ZX347')).to eq empty_value
     end
   end
+
+  context 'when using formulas' do
+    let(:spreadsheet) { Spreadsheet::Sheet.new }
+    let(:cell) { 'A1' }
+
+    before do
+      spreadsheet.put(cell, value)
+    end
+
+    context 'with parentheses' do
+      let(:value) { '=(7)' }
+      let(:expected_value) { '7' }
+
+      it 'returns the value' do
+        expect(spreadsheet.get(cell)).to eq expected_value
+      end
+    end
+  end
 end
