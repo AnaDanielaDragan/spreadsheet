@@ -12,12 +12,20 @@ module Spreadsheet
 
         if constant?
           @current_value.strip
+        elsif multiplication?
+          @current_value.split('*').map(&:to_i).inject(:*)
         elsif parentheses?
           @current_value.slice(INNER_PARENTHESES_REGEX, 1)
+        else
+          @current_value
         end
       end
 
       private
+
+      def multiplication?
+        @current_value.include?('*')
+      end
 
       def parentheses?
         @current_value.include?('(') and @current_value.include?(')')

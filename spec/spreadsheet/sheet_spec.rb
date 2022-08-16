@@ -242,5 +242,18 @@ describe 'Sheet' do
         expect(spreadsheet.get(cell)).to eq(expected_value), 'Parends'
       end
     end
+
+    context 'when using multiplication' do
+      let(:value) { '=2*3*4' }
+      let(:expected_value) { 24 }
+
+      it 'returns the multiplication result' do
+        expect(spreadsheet.get(cell)).to eq expected_value
+      end
+    end
   end
+
+  #  TODO: Refactoring
+  #   -> Eliminate messages from expect
+  #   -> Get Integer results for constant
 end
