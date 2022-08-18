@@ -5,7 +5,7 @@ module Spreadsheet
     INNER_PARENTHESES_REGEX = /.*\((.*?)\)/.freeze
     NUMERIC_REGEX = /\A-?\d+\Z/.freeze
 
-    MATH_OPERATIONS = /[+*]/.freeze
+    MATH_OPERATIONS = /[+*-]/.freeze
 
     class << self
       def get_result(value)
@@ -41,6 +41,8 @@ module Spreadsheet
           @current_value.split('+').map(&:to_i).inject(:+)
         elsif multiplication?
           @current_value.split('*').map(&:to_i).inject(:*)
+        elsif subtraction?
+          @current_value.split('-').map(&:to_i).inject(:-)
         end
       end
 
@@ -50,6 +52,10 @@ module Spreadsheet
 
       def multiplication?
         @current_value.include?('*')
+      end
+
+      def subtraction?
+        @current_value.include?('-')
       end
     end
   end

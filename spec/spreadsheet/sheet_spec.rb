@@ -246,5 +246,19 @@ describe 'Sheet' do
 
       it_behaves_like 'a value result'
     end
+
+    context 'with subtraction' do
+      let(:value) { '=21-5-4' }
+      let(:expected_value) { 12 }
+
+      it_behaves_like 'a value result'
+
+      context 'when result is a negative number' do
+        let(:value) { '=7-21' }
+        let(:expected_value) { -14 }
+
+        it_behaves_like 'a value result'
+      end
+    end
   end
 end
