@@ -157,18 +157,14 @@ describe 'Sheet' do
         let(:value) { '14' }
         let(:expected_value) { 14 }
 
-        it 'returns value as number' do
-          expect(spreadsheet.get(cell)).to eq expected_value
-        end
+        it_behaves_like 'a value result'
       end
 
       context 'when value is a mixed number with white spaces' do
         let(:value) { ' 1234 ' }
         let(:expected_value) { 1234 }
 
-        it 'returns value as number' do
-          expect(spreadsheet.get(cell)).to eq expected_value
-        end
+        it_behaves_like 'a value result'
       end
     end
 
@@ -192,9 +188,7 @@ describe 'Sheet' do
         let(:value) { '=7' }
         let(:expected_value) { 7 }
 
-        it 'returns the result value' do
-          expect(spreadsheet.get(cell)).to eq expected_value
-        end
+        it_behaves_like 'a value result'
 
         context 'when requesting the literal value' do
           let(:expected_value) { '=7' }
@@ -229,40 +223,28 @@ describe 'Sheet' do
       let(:value) { '=(7)' }
       let(:expected_value) { '7' }
 
-      it 'returns the value' do
-        expect(spreadsheet.get(cell)).to eq expected_value
-      end
+      it_behaves_like 'a value result'
     end
 
     context 'with deep parentheses' do
       let(:value) { '=((((10))))' }
       let(:expected_value) { '10' }
 
-      it 'returns the value' do
-        expect(spreadsheet.get(cell)).to eq expected_value
-      end
+      it_behaves_like 'a value result'
     end
 
     context 'with multiplication' do
       let(:value) { '=2*3*4' }
       let(:expected_value) { 24 }
 
-      it 'returns the multiplication result' do
-        expect(spreadsheet.get(cell)).to eq expected_value
-      end
+      it_behaves_like 'a value result'
     end
 
     context 'with addition' do
       let(:value) { '=71+2+3' }
       let(:expected_value) { 76 }
 
-      it 'returns the sum result' do
-        expect(spreadsheet.get(cell)).to eq expected_value
-      end
+      it_behaves_like 'a value result'
     end
-
-    #  TODO: Refactoring
-    #   -> Extract spreadsheet.get(cell) to subject
-    #   -> Define expect(spreadsheet.get(cell)).to eq expected_value something like it_behaves_like 'a result'
   end
 end
