@@ -225,14 +225,14 @@ describe 'Sheet' do
 
     context 'with parentheses' do
       let(:value) { '=(7)' }
-      let(:expected_value) { '7' }
+      let(:expected_value) { 7 }
 
       it_behaves_like 'a value result'
     end
 
     context 'with deep parentheses' do
       let(:value) { '=((((10))))' }
-      let(:expected_value) { '10' }
+      let(:expected_value) { 10 }
 
       it_behaves_like 'a value result'
     end
