@@ -214,10 +214,14 @@ describe 'Sheet' do
   context 'when using formulas' do
     let(:spreadsheet) { Spreadsheet::Sheet.new }
     let(:cell) { 'A1' }
+    let(:value) { '=7*(2+3)*((((2+1))))' }
+    let(:expected_value) { 105 }
 
     before do
       spreadsheet.put(cell, value)
     end
+
+    it_behaves_like 'a value result'
 
     context 'with parentheses' do
       let(:value) { '=(7)' }
