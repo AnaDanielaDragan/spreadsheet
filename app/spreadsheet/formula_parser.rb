@@ -37,13 +37,7 @@ module Spreadsheet
       end
 
       def resolve_math_operation
-        if sum?
-          @current_value.split('+').map(&:to_i).inject(:+)
-        elsif multiplication?
-          @current_value.split('*').map(&:to_i).inject(:*)
-        elsif subtraction?
-          @current_value.split('-').map(&:to_i).inject(:-)
-        end
+        BasicMathParser.evaluate(@current_value)
       end
 
       def sum?

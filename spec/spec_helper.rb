@@ -2,6 +2,7 @@
 
 require 'rspec'
 require 'pry'
+require 'basic_math_parser'
 
 require './app/spreadsheet/sheet'
 
