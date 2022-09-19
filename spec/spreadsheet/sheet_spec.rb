@@ -260,5 +260,12 @@ describe 'Sheet' do
         it_behaves_like 'a value result'
       end
     end
+
+    context 'when considering precedence' do
+      let(:value) { '=7+2*3' }
+      let(:expected_value) { 13 }
+
+      it_behaves_like 'a value result'
+    end
   end
 end
