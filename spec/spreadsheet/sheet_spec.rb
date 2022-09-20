@@ -295,4 +295,18 @@ describe 'Sheet' do
       it_behaves_like 'a value result'
     end
   end
+
+  context 'when using cell references' do
+    let(:spreadsheet) { Spreadsheet::Sheet.new }
+    let(:cell) { 'A2' }
+    let(:value) { '8' }
+    let(:expected_value) { 8 }
+
+    before do
+      spreadsheet.put('A1', value)
+      spreadsheet.put(cell, '=A1')
+    end
+
+    it_behaves_like 'a value result'
+  end
 end
