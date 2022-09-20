@@ -17,6 +17,8 @@ module Spreadsheet
 
       if number?(table_value)
         table_value.strip.to_i
+      elsif reference?(table_value)
+        get(table_value[1..])
       elsif formula?(table_value)
         Parsers::FormulaParser.get_result(table_value)
       else
@@ -33,6 +35,14 @@ module Spreadsheet
     end
 
     private
+
+    def reference?(value)
+      value[0] == '=' && cell_reference?(value[1..])
+    end
+
+    def cell_reference?(value)
+      value[0].match?(/[A-Z]/) && value[1..].match?(/[[:digit:]]/)
+    end
 
     def formula?(value)
       value[0] == '='
