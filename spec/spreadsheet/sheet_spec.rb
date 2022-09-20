@@ -214,60 +214,83 @@ describe 'Sheet' do
   context 'when using formulas' do
     let(:spreadsheet) { Spreadsheet::Sheet.new }
     let(:cell) { 'A1' }
-    let(:value) { '=7*(2+3)*((((2+1))))' }
-    let(:expected_value) { 105 }
 
     before do
       spreadsheet.put(cell, value)
     end
 
-    it_behaves_like 'a value result'
-
-    context 'with parentheses' do
-      let(:value) { '=(7)' }
-      let(:expected_value) { 7 }
-
-      it_behaves_like 'a value result'
-    end
-
-    context 'with deep parentheses' do
-      let(:value) { '=((((10))))' }
-      let(:expected_value) { 10 }
-
-      it_behaves_like 'a value result'
-    end
-
-    context 'with multiplication' do
-      let(:value) { '=2*3*4' }
-      let(:expected_value) { 24 }
-
-      it_behaves_like 'a value result'
-    end
-
-    context 'with addition' do
-      let(:value) { '=71+2+3' }
-      let(:expected_value) { 76 }
-
-      it_behaves_like 'a value result'
-    end
-
-    context 'with subtraction' do
-      let(:value) { '=21-5-4' }
-      let(:expected_value) { 12 }
+    context 'with mathematical operands' do
+      let(:value) { '=7*(2+3)*((((2+1))))' }
+      let(:expected_value) { 105 }
 
       it_behaves_like 'a value result'
 
-      context 'when result is a negative number' do
-        let(:value) { '=7-21' }
-        let(:expected_value) { -14 }
+      context 'with parentheses' do
+        let(:value) { '=(7)' }
+        let(:expected_value) { 7 }
+
+        it_behaves_like 'a value result'
+      end
+
+      context 'with deep parentheses' do
+        let(:value) { '=((((10))))' }
+        let(:expected_value) { 10 }
+
+        it_behaves_like 'a value result'
+      end
+
+      context 'with multiplication' do
+        let(:value) { '=2*3*4' }
+        let(:expected_value) { 24 }
+
+        it_behaves_like 'a value result'
+      end
+
+      context 'with addition' do
+        let(:value) { '=71+2+3' }
+        let(:expected_value) { 76 }
+
+        it_behaves_like 'a value result'
+      end
+
+      context 'with subtraction' do
+        let(:value) { '=21-5-4' }
+        let(:expected_value) { 12 }
+
+        it_behaves_like 'a value result'
+
+        context 'when result is a negative number' do
+          let(:value) { '=7-21' }
+          let(:expected_value) { -14 }
+
+          it_behaves_like 'a value result'
+        end
+      end
+
+      context 'when considering precedence' do
+        let(:value) { '=7+2*3' }
+        let(:expected_value) { 13 }
 
         it_behaves_like 'a value result'
       end
     end
 
-    context 'when considering precedence' do
-      let(:value) { '=7+2*3' }
-      let(:expected_value) { 13 }
+    context 'with incomplete formulas' do
+      let(:value) { '=7*' }
+
+      it_behaves_like 'a parse error'
+
+      context 'with unclosed parenthesis' do
+        let(:value) { '=(((((7))' }
+        let(:expected_value) { 7 }
+
+        it_behaves_like 'a value result'
+      end
+    end
+
+    context 'with incorrect numeric input' do
+      let(:value) { '=7/0' }
+      let(:expected_value) { Float::INFINITY }
 
       it_behaves_like 'a value result'
     end

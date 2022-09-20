@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require './app/table'
-require './app/spreadsheet/formula_parser'
+require './app/parsers/formula_parser'
 
 module Spreadsheet
   class Table
@@ -18,7 +18,7 @@ module Spreadsheet
       if number?(table_value)
         table_value.strip.to_i
       elsif formula?(table_value)
-        Spreadsheet::FormulaParser.get_result(table_value)
+        Parsers::FormulaParser.get_result(table_value)
       else
         table_value
       end
